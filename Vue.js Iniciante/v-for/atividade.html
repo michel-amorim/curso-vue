@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <li>
+        <a
+          @click.prevent="puxarAcoes"
+          href="https://cloud.iexapis.com/stable/stock/aapl/quote?token=pk_ffcb30dc2d6f4376b88f702e4444f02b"
+        >
+          Apple</a
+        >
+      </li>
+      <li>
+        <a
+          @click.prevent="puxarAcoes"
+          href="https://cloud.iexapis.com/stable/stock/googl/quote?token=pk_ffcb30dc2d6f4376b88f702e4444f02b"
+        >
+          Google
+        </a>
+      </li>
+      <li>
+        <a
+          @click.prevent="puxarAcoes"
+          href="https://cloud.iexapis.com/stable/stock/amzn/quote?token=pk_ffcb30dc2d6f4376b88f702e4444f02b"
+        >
+          Amazon
+        </a>
+      </li>
+      <li>
+        <a
+          @click.prevent="puxarAcoes"
+          href="https://cloud.iexapis.com/stable/stock/ebay/quote?token=pk_ffcb30dc2d6f4376b88f702e4444f02b"
+        >
+          Ebay
+        </a>
+      </li>
+      <li>
+        <a
+          @click.prevent="puxarAcoes"
+          href="https://cloud.iexapis.com/stable/stock/pypl/quote?token=pk_ffcb30dc2d6f4376b88f702e4444f02b"
+        >
+          Paypal
+        </a>
+      </li>
+      <div>
+        <p>{{acoes.companyName}}</p>
+        <p>{{acoes.marketCap}}</p>
+        <p>{{acoes.latestPrice}}</p>
+      </div>
+    </div>
+
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          acoes: {},
+        },
+        methods: {
+          puxarAcoes(event) {
+            const url = event.currentTarget.href;
+            fetch(url)
+              .then((r) => r.json())
+              .then((r) => {
+                this.acoes = r;
+              });
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

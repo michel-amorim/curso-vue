@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+  <body>
+    <style>
+      .azul {
+        color: blue;
+      }
+
+      .vermelho {
+        color: red;
+      }
+    </style>
+    <div id="app">
+      <div>
+        <button v-on:click="aumentar">+</button>
+        <button @click="diminuir">-</button>
+        {{contador}}
+      </div>
+      <div>
+        <button @click="ativo = !ativo">Toggle</button>
+        <p class="azul" v-if="ativo">Ativo</p>
+        <p class="vermelho" v-else>Negado</p>
+      </div>
+      <a href="#interno" @click.prevent.once="handleclick">Link interno</a>
+      <!--
+         Prevent = prevent.defaut
+         once = usar apenas uma vez o evento
+      -->
+
+      <div>
+        <input type="text" @keyup="handleClick" />
+        <!-- keyup.(alguma coisa) = recupera apenas a tecla escolhida -->
+      </div>
+
+      <div>
+        <p @mousemove="handleMouse">Esse é o mouse x: {{mouse.x}}</p>
+      </div>
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          contador: 0,
+          ativo: true,
+          mouse: "",
+        },
+        methods: {
+          handleClick(event) {
+            console.log(event.key);
+          },
+          handleMouse(event) {
+            this.mouse = event;
+          },
+          aumentar() {
+            soma = this.contador++;
+          },
+          diminuir() {
+            soma = this.contador--;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
+
+<!-- https://vuejs.org/v2/api/#v-on -->

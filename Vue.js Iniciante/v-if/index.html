@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+  <body>
+    <div id="app">
+      <template v-if="logado">
+        <p>Usuário logado</p>
+        <button @click="logado = false">Deslogar</button>
+      </template>
+      <template v-else="deslogar">
+        <p>Usuário deslogado</p>
+        <button @click="logado = true">Logar</button>
+      </template>
+      <!-- Existe tbm o v-show que não deixa comentario no dom e sim coloca uma class display none -->
+    </div>
+    <script>
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          logado: true,
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>
+
+<!-- https://vuejs.org/v2/api/#v-on -->
