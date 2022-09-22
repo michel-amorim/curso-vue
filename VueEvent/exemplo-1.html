@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <script src="./vue.js"></script>
+    <title>Vue.js</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <component-um></component-um>
+      <component-dois></component-dois>
+      <!-- {{contador}}
+      <meu-botao :contador.sync="contador"></meu-botao> -->
+    </div>
+
+    <script type="module">
+      const EventBus = new Vue();
+
+      const ComponentUm = {
+        name: "ComponentUm",
+        template: `<p @click="emitirEvento">Componente 1</p>`,
+        data() {
+          return {
+            menssagem: "Evento 1",
+          };
+        },
+        methods: {
+          emitirEvento() {
+            EventBus.$emit("meuevento", this.menssagem);
+          },
+        },
+      };
+
+      const ComponentDois = {
+        name: "ComponentDois",
+        template: `<p>{{menssagem}}</p>`,
+        data() {
+          return {
+            menssagem: "Oi",
+          };
+        },
+        created() {
+          EventBus.$on("meuevento", (event) => {
+            this.menssagem = event;
+          });
+        },
+      };
+
+      const MeuBotao = {
+        name: "MeuBotao",
+        props: ["contador"],
+        data() {
+          return {
+            contadorComponent: this.contador,
+          };
+        },
+        template: `<button @click="incrementar">Clique {{contadorComponent}}</button>`,
+        methods: {
+          incrementar() {
+            this.contadorComponent++;
+            this.$emit("update:contador", this.contadorComponent);
+          },
+        },
+      };
+      const vm = new Vue({
+        el: "#app",
+        data: {
+          contador: 0,
+        },
+        components: {
+          // MeuBotao,
+          ComponentUm,
+          ComponentDois,
+        },
+        methods: {},
+      });
+    </script>
+  </body>
+</html>
